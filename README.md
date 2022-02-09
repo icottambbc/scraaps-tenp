@@ -9,4 +9,10 @@ Prototype for Scrapps 10p project
 
 ### Food Consumers
 3.  viewMeals()
-4.  purchaseMeal()
+4.  viewMeal()
+5.  purchaseMeal()
+
+
+### To do:
+
+- Look at login and displaying user info on the meal page
