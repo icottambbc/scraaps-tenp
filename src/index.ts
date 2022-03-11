@@ -7,8 +7,15 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import { itemsRouter } from "./items/items.router";
+import { authRouter } from "./auth/auth.router";
 import { errorHandler } from "./middleware/error.middleware";
 import { notFoundHandler } from "./middleware/not-found.middleware";
+import session from "express-session";
+import passport from "passport";
+import SQLLite from "connect-sqlite3";
+import path from "path";
+
+const SQLiteStore = SQLLite(session);
  
 dotenv.config();
 
@@ -29,9 +36,20 @@ const app = express();
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use("/api/menu/items", itemsRouter);
 
-app.use(errorHandler);
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  store: new SQLiteStore({ db: 'sessions.db', dir: './var/db' })
+}));
+app.use(passport.authenticate('session'));
+
+app.use("/api/menu/items", itemsRouter);
+app.use("/api/auth", authRouter);
+
+// app.use(errorHandler);
 app.use(notFoundHandler);
 
 /**

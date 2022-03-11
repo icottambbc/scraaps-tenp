@@ -1,6 +1,10 @@
 # scraaps-tenp
 Prototype for Scrapps 10p project
 
+## To Run
+
+`yarn dev`
+
 ## Functions to write
 
 ### Food Producers
