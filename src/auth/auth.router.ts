@@ -16,7 +16,7 @@ passport.use(new GoogleStrategy({
 }, (issuer: any, profile: any, cb: any) => {
   console.log(issuer);
   console.log(profile);
-  cb();
+  cb(null, profile);
 }))
 
 passport.serializeUser(function(user: any, cb) {
@@ -43,6 +43,7 @@ export const authRouter = express.Router();
 
 // GET login page
 authRouter.get("/login", async (req: Request, res: Response) => {
+  console.log('is logged in:' + req.isAuthenticated());
   res.status(200).send('login');
 });
 

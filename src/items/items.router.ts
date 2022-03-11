@@ -18,6 +18,8 @@ export const itemsRouter = express.Router();
 // GET items
 
 itemsRouter.get("/", async (req: Request, res: Response) => {
+  console.log(req.user);
+  console.log('is logged in:' + req.isAuthenticated());
   try {
     const items: Item[] = await ItemService.findAll();
 
